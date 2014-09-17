@@ -1,0 +1,42 @@
+{
+  "name": "esprima-ast-utils",
+  "version": "0.0.1",
+  "description": "collection for AST query/manipulation/transformation",
+  "main": "index.js",
+  "directories": {
+    "lib": ".",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap test/test-*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llafuente/esprima-ast-utils.git"
+  },
+  "keywords": [
+    "arguments",
+    "falafel",
+    "browserify",
+    "jsdoc"
+  ],
+  "author": {
+    "name": "Luis Lafuente",
+    "email": "llafuente@noboxout.com",
+    "url": "http://www.noboxout.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llafuente/esprima-ast-utils/issues"
+  },
+  "homepage": "https://github.com/llafuente/esprima-ast-utils",
+  "dependencies": {
+    "esprima": "git://github.com/ariya/esprima.git#master",
+    "cssauron-falafel": "^1.2.1"
+  },
+  "devDependencies": {
+    "tap": "^0.4.11",
+    "object-enhancements": "^0.1.1",
+    "archy": "^1.0.0"
+  }
+}
