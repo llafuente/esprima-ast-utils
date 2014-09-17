@@ -1,4 +1,4 @@
-# esprima-ast-utils
+# esprima-ast-utils [![Build Status](https://secure.travis-ci.org/llafuente/esprima-ast-utils.png?branch=master)](http://travis-ci.org/llafuente/esprima-ast-utils)
 
 Node module to manipulate, transform, query and debug [esprima](https://github.com/ariya/esprima) ASTs.
 
