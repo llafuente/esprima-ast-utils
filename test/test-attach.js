@@ -9,7 +9,7 @@ test("utils.attach 1", function(t) {
 
     utils.attach(tree, "body", 0, "var x;\n\n");
 
-    t.equal(tree.$code, 'var x;var a;\n\nvar b;\nvar c;');
+    t.equal(tree.$code, 'var x;\n\nvar a;\n\nvar b;\nvar c;');
     t.equal(tree.tokens.length, 12);
 
     t.end();
@@ -25,7 +25,7 @@ test("utils.attach 2", function(t) {
     console.log(require("util").inspect(tree, {depth: null, colors: true}));
 
 
-    t.equal(tree.$code, 'var a;\n\nvar x;var b;\nvar c;');
+    t.equal(tree.$code, 'var a;\n\nvar x;\n\nvar b;\nvar c;');
     t.equal(tree.tokens.length, 12);
 
     t.end();

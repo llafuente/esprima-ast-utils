@@ -1,6 +1,6 @@
 {
   "name": "esprima-ast-utils",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "collection for AST query/manipulation/transformation",
   "main": "index.js",
   "directories": {
@@ -32,11 +32,11 @@
   "homepage": "https://github.com/llafuente/esprima-ast-utils",
   "dependencies": {
     "esprima": "git://github.com/ariya/esprima.git#master",
-    "cssauron-falafel": "^1.2.1"
+    "cssauron-falafel": "^1.2.1",
+    "archy": "^1.0.0"
   },
   "devDependencies": {
     "tap": "^0.4.11",
-    "object-enhancements": "^0.1.1",
-    "archy": "^1.0.0"
+    "object-enhancements": "^0.1.1"
   }
 }
