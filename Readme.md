@@ -13,21 +13,25 @@ esprima-ast-utils do this for you, so no escodegen is needed, you can edit the A
 ### io
 
 
-#### `parse` (String:str, [Boolean:debug])
+#### `parse` (String:str, [Boolean]:debug)
 
 Parse given str
 
-**Note** location it's not supported, and won't sync with changes, range/rokens do.
+* `debug`: display $id, $parent and $code in console.log (enumerable=true)
+
+**Note**: location it's not supported, and won't sync with changes, range/rokens do.
 
 
 
-#### `parseFile` (String:file, [Boolean:debug])
+#### `parseFile` (String:file, [Boolean]:debug)
 
 Parse given file
 
+* `file`: Path
 
+* `debug`: display $id, $parent and $code in console.log (enumerable=true)
 
-**Note**: NodeJS only
+**Note**: : NodeJS only
 
 
 
@@ -40,21 +44,32 @@ Return tree.$code, just for API completeness.
 ### walk
 
 
-#### `traverse` (Object:node, Function:callback, [Number:depth], [Boolean:recursive])
+#### `traverse` (Object:node, Function:callback, [Number]:depth, [Boolean]:recursive)
 
 traverse AST
 
+* `callback`: function(node, parent, property, index, depth)
+  You can return `false` to stop traverse
+
+* `depth`: (0) current depth
+
+* `recursive`: (true) recursively traverse
 
 
-#### `parentize` (Object:root, [Boolean:debug])
+
+#### `parentize` (Object:root, [Boolean]:debug)
 
 `traverse` AST and set $parent node
 
+* `debug`: display $parent in console.log (enumerable=true)
 
 
-#### `idze` (Object:node, [Boolean:debug])
+
+#### `idze` (Object:node, [Boolean]:debug)
 
 `traverse` AST and set an unique `$id` to every node
+
+* `debug`: display $id in console.log (enumerable=true)
 
 
 
@@ -72,7 +87,7 @@ Loop thought comments and find a proper place to inject (BlockStament or alike)
 
 
 
-#### `filter` (Object:node, Function:callback, [Function:traverse_fn])
+#### `filter` (Object:node, Function:callback, [Function]:traverse_fn)
 
 `traverse` and `filter` given AST based on given `callback`
 
@@ -101,11 +116,17 @@ If you want those, call `parentize` - `idze` after cloning
 ### debug
 
 
-#### `debug_tree` (Object:tree, [Number:max_width], [Boolean:display_code_in_tree])
+#### `debug_tree` (Object:tree, [Number]:max_width, [Boolean]:display_code_in_tree)
 
 Show your tree in various ways to easy debug
 
 Big trees will be always a pain, so keep it small if possible
+
+* `tree`: Any node, if root tokens & source will be displayed
+
+* `max_width`: max tokens per line
+
+* `display_code_in_tree`: when display the tree attach the code on the right
 
 
 
@@ -140,7 +161,7 @@ shortcut
 
 reverse from node to root and look for a Variable declaration
 
-**Note** It's not perfect because `VariableDeclaration` it's not hoisted
+**Note**: It's not perfect because `VariableDeclaration` it's not hoisted
 
 
 
@@ -183,15 +204,23 @@ Return `FunctionDeclaration` arguments name as a list
 ### manipulations
 
 
-#### `attach` (Object:node, String:property, Number|null:position, String|Object:str)
+#### `attach` (Object:node, String:property, Number|NULL:position, String|Object:str)
 
 Attach Code/Program to given node.
 
-**Note** tokens are updated
+* `node`: node to attach
 
-**Note** range is updated
+* `property`: Where attach, could be an array or an object
 
-**Note** comments are not attached to root.comments (invalid-comments)
+* `position`: index if an array is used as target property
+
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
+**Note**: tokens are updated
+
+**Note**: range is updated
+
+**Note**: comments are not attached to root.comments (invalid-comments)
 
 
 
@@ -199,7 +228,7 @@ Attach Code/Program to given node.
 
 Detach given node from it's parent
 
-**Note** `node.$parent` is set to `null`, remember to save it first if you need it.
+**Note**: `node.$parent` is set to `null`, remember to save it first if you need it.
 
 
 
@@ -207,11 +236,15 @@ Detach given node from it's parent
 
 Attach after node, that means `node.$parent.type` is a `BockStament`
 
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
 
 
 #### `attachBefore` (Object:node, String|Object:str)
 
 Attach before node, that means `node.$parent.type` is a `BockStament`
+
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
 
 
 
@@ -219,17 +252,23 @@ Attach before node, that means `node.$parent.type` is a `BockStament`
 
 Shortcut: Search for given comment, and attachAfter
 
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
 
 
 #### `replace` (Object:node, String|Object:str)
 
 Shortcut: detach/attach
 
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
 
 
 #### `replaceComment` (Object:node, String:comment, String|Object:str)
 
 Shortcut: Search for a comment and replace
+
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
 
 
 
@@ -239,7 +278,11 @@ Inject code directly intro the given range.
 
 After the injection the code will be parsed again so original `$id` will be lost
 
-**Note** this is dangerous and powerful
+* `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
+* `debug`: display $id, $parent and $code in console.log (enumerable=true)
+
+**Note**: this is dangerous and powerful
 
 
 
@@ -310,7 +353,7 @@ Get tokens in range
 
 Push tokens range from start
 
-**Note** Also update Node ranges
+**Note**: Also update Node ranges
 
 
 
@@ -318,7 +361,7 @@ Push tokens range from start
 
 Grow tokens in given range
 
-**Note** Also update Node ranges
+**Note**: Also update Node ranges
 
 
 
@@ -332,7 +375,7 @@ Get the first token
 
 Add `src` tokens to `dst` since `start` (so keep the order)
 
-**Note** Remember to push `src` tokens before `addTokens` otherwise won't be synced
+**Note**: Remember to push `src` tokens before `addTokens` otherwise won't be synced
 
 
 
@@ -345,6 +388,7 @@ Replace code range with given text.
 #### `removeTokens` (Object:root, Number:min, Number:max)
 
 Remove tokens in range and update ranges
+
 
 
 ## License
