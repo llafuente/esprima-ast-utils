@@ -7,158 +7,345 @@ Node module to manipulate, transform, query and debug [esprima](https://github.c
 When you edit esprima AST and go back to code with escodegen you lose too much information because primary you don't keep track of ranges, tokens, comments etc.
 esprima-ast-utils do this for you, so no escodegen is needed, you can edit the AST directly and code everything is in sync.
 
-## walk
+## API
 
-Functions that walk thought the AST
 
-* traverse(node, callback, depth, recursive)
+### io
 
-  `Object:node`
 
-  `Function:callback` function(node, parent, property, index, depth)
+#### `parse` (String:str, [Boolean:debug])
 
-  You can return `false` to stop traverse
+Parse given str
 
-  `Number:depth`
+**Note** location it's not supported, and won't sync with changes, range/rokens do.
 
-  `Boolean:recursive` do recursion (true by default)
 
-* parentize(node, debug)
 
-    traverse the AST and add $parent to each node
+#### `parseFile` (String:file, [Boolean:debug])
 
-    `Boolean:debug` to do $parent enumerable (visible to console.log)
+Parse given file
 
-* idze(node, debug)
 
-    traverse the AST and add $id (unique id) to each node
 
-    `Boolean:debug` to do $id enumerable (visible to console.log)
+**Note**: NodeJS only
 
-* attachComments(root)
 
-    Traverse the AST and add comments as nodes, so you can query them.
 
-    **Node** Some comment cannot be attached to the tree, a warning will be displayed
+#### `encode` (Object:tree)
 
-* filter(node, callback, traverse_fn)
+Return tree.$code, just for API completeness.
 
-    traverse and filter the AST based on given callback
 
-    `Function:callback` (current_node): Boolean
 
-    `Function:traverse_fn` By default traverse, you can use your own
+### walk
 
-* getParent(node, callback): node|null
 
-    Get parent node based on given callback, stops on `true`
+#### `traverse` (Object:node, Function:callback, [Number:depth], [Boolean:recursive])
 
-    `callback` function(current_node): Boolean
+traverse AST
 
-* getRoot(node): root
 
-    get the root of the AST
 
-## Tokens
+#### `parentize` (Object:root, [Boolean:debug])
 
-* getToken
-* pushTokens
-* growTokens
-* tokenAt
-* addTokens
-* replaceCodeRange
-* removeTokens
+`traverse` AST and set $parent node
 
-## IO
 
-* parse(str, debug)
 
-  Parse String into AST, parentize, idze, attachComments and add $code to the root
+#### `idze` (Object:node, [Boolean:debug])
 
-  `String:filename`
+`traverse` AST and set an unique `$id` to every node
 
-  `Boolean:debug` expose $code, $parent and $id
 
-* parseFile(filename, debug)
 
-  Get file contents (sync) and parse
+#### `attachComments` (Object:root)
 
-  `String:filename`
+Traverse the AST and add comments as nodes, so you can query them.
 
-  `Boolean:debug` expose $code, $parent and $id
+Loop thought comments and find a proper place to inject (BlockStament or alike)
 
-* encode
+* attach the comment to the before nearest children
 
-  Return $code (not really needed, just to keep sane)
+* if a children contains the comment it's considered invalid
 
-## Query
+* push otherwise
 
-* getFunction
-* getFunctionBlock
-* isFunctionDeclared
-* isComment
-* hasVarDeclaration
-* isVarDeclared
-* contains
 
-  Does a node contains this node ?
 
-* hasBody
-* getComment
-* getCode
+#### `filter` (Object:node, Function:callback, [Function:traverse_fn])
 
-## Manipulation
+`traverse` and `filter` given AST based on given `callback`
 
-Attach, detach and replace.
 
-**Note**: It's recommended to send the code as string or at least use `parse`, plain AST could be invalid to attach
 
-**Note**: Allways attach to Program/BlockStatement you can attach almost everywhere if you know what you are doing, but use with caution, there is no AST validation method.
+#### `getParent` (Object:node, Function:callback)
 
-* attach(node, property, position, str)
+Get parent node based on given callback, stops on `true`
 
-  `Object:node`
 
-  `String:property` should be body (it's recommend to only attach to Program and BlockStatement)
 
-  `position:position`
+#### `getRoot` (Object:node)
 
-  `String|Object:str`
+get the root of the AST
 
-* detach(node): String
 
-  detach node from it's parent, and reset $parent (remember to save it before if needed)
 
-  `Object:node`
+#### `clone` (Object:node)
 
-  Return detached code as String
+Recursive clone a node. Do no include "$" properties like $parent or $id
 
-* attachBefore(node, str): Boolean
+If you want those, call `parentize` - `idze` after cloning
 
-  Attach in it's parent before node.
 
-  `Object:node`
 
-  `String|Object:str`
+### debug
 
-* attachAfterComment(node, comment, str): Boolean
-* replace(node, str): Boolean
-* replaceComment(node, comment, str): Boolean
 
-## Transformation
+#### `debug_tree` (Object:tree, [Number:max_width], [Boolean:display_code_in_tree])
 
-Modify AST properties
+Show your tree in various ways to easy debug
 
-* setIdentifier(node, new_name)
-* renameProperty(node, replacements)
-* renameVariable(node, replacements)
-* renameFunction(node, replacements)
+Big trees will be always a pain, so keep it small if possible
 
-## debug
 
-* debug_tree(node)
 
-  Display in console a lot of information to debug your tree, remember to use `less` if your tree is big :)
+### query
+
+
+#### `getFunction` (Object:node, String:fn_name)
+
+`filter` the AST and return the function with given name, null otherwise.
+
+
+
+#### `getFunctionBlock` (Object:node, String:fn_name)
+
+`filter` the AST and return the function > block with given name, null otherwise.
+
+
+
+#### `isFunctionDeclared` (Object:node, String:fn_name)
+
+shortcut
+
+
+
+#### `hasVarDeclaration` (Object:node, String:var_name)
+
+shortcut
+
+
+
+#### `isVarDeclared` (Object:node, String:var_name)
+
+reverse from node to root and look for a Variable declaration
+
+**Note** It's not perfect because `VariableDeclaration` it's not hoisted
+
+
+
+#### `contains` (Object:node, Object:subnode)
+
+`node` constains `subnode`
+
+
+
+#### `hasBody` (Object:node)
+
+Has a body property, use to freely attach/detach
+
+
+
+#### `isComment` (Object:node)
+
+shortcut: Is a comment (Line or Block) and has text
+
+
+
+#### `getComment` (Object:node, String:comment)
+
+shortcut: search for a comment (trim it's content for maximum compatibility)
+
+
+
+#### `getCode` (Object:node)
+
+shortcut: Return node code
+
+
+
+#### `getArgumentList` (Object:node)
+
+Return `FunctionDeclaration` arguments name as a list
+
+
+
+### manipulations
+
+
+#### `attach` (Object:node, String:property, Number|null:position, String|Object:str)
+
+Attach Code/Program to given node.
+
+**Note** tokens are updated
+
+**Note** range is updated
+
+**Note** comments are not attached to root.comments (invalid-comments)
+
+
+
+#### `detach` (Object:node, String:property)
+
+Detach given node from it's parent
+
+**Note** `node.$parent` is set to `null`, remember to save it first if you need it.
+
+
+
+#### `attachAfter` (Object:node, String|Object:str)
+
+Attach after node, that means `node.$parent.type` is a `BockStament`
+
+
+
+#### `attachBefore` (Object:node, String|Object:str)
+
+Attach before node, that means `node.$parent.type` is a `BockStament`
+
+
+
+#### `attachAfterComment` (Object:node, String:comment, String|Object:str)
+
+Shortcut: Search for given comment, and attachAfter
+
+
+
+#### `replace` (Object:node, String|Object:str)
+
+Shortcut: detach/attach
+
+
+
+#### `replaceComment` (Object:node, String:comment, String|Object:str)
+
+Shortcut: Search for a comment and replace
+
+
+
+#### `injectCode` (Object:tree, Array:range, String|Object:str, Boolean:debug)
+
+Inject code directly intro the given range.
+
+After the injection the code will be parsed again so original `$id` will be lost
+
+**Note** this is dangerous and powerful
+
+
+
+### transformations
+
+
+#### `setIdentifier` (Object:node, String:new_name)
+
+rename `Identifier`
+
+
+
+#### `renameProperty` (Object:node, Object:replacements)
+
+`traverse` and apply given `replacements`
+
+Example:
+```js
+renameProperty(node, {"old_var": "new_var", "much_older": "shinnig_new"})
+```
+
+
+
+#### `renameVariable` (Object:node, Object:replacements)
+
+`traverse` and apply given `replacements`
+
+Example:
+```js
+renameVariable(node, {"old_var": "new_var", "much_older": "shinnig_new"})
+```
+
+
+
+#### `renameFunction` (Object:node, Object:replacements)
+
+traverse and apply given `replacements`
+
+Example:
+```js
+renameFunction(node, {"old_var": "new_var", "much_older": "shinnig_new"})
+```
+
+
+
+#### `toProgram` (Object:node)
+
+clone given node and extract tokens/code from root to given you a Program-like node
+
+
+
+### tokens
+
+
+#### `getToken` (Object:root, Number:start, Number:end)
+
+Get token based on given range
+
+
+
+#### `getTokens` (Object:root, Number:start, Number:end)
+
+Get tokens in range
+
+
+
+#### `pushTokens` (Object:root, Number:start, Number:amount)
+
+Push tokens range from start
+
+**Note** Also update Node ranges
+
+
+
+#### `growTokens` (Object:root, Number:start, Number:end, Number:amount)
+
+Grow tokens in given range
+
+**Note** Also update Node ranges
+
+
+
+#### `tokenAt` (Array:token_list, Number:start)
+
+Get the first token
+
+
+
+#### `addTokens` (Array:dst, Array:src, Number:start)
+
+Add `src` tokens to `dst` since `start` (so keep the order)
+
+**Note** Remember to push `src` tokens before `addTokens` otherwise won't be synced
+
+
+
+#### `replaceCodeRange` (Object:root, Array:range, String:new_text)
+
+Replace code range with given text.
+
+
+
+#### `removeTokens` (Object:root, Number:min, Number:max)
+
+Remove tokens in range and update ranges
+
 
 ## License
 MIT

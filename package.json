@@ -1,6 +1,6 @@
 {
   "name": "esprima-ast-utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "collection for AST query/manipulation/transformation",
   "main": "index.js",
   "directories": {
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "tap": "^0.4.11",
-    "object-enhancements": "^0.1.1"
+    "object-enhancements": "^0.1.1",
+    "doctrine": "^0.5.2"
   }
 }
