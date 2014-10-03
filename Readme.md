@@ -390,6 +390,33 @@ Replace code range with given text.
 Remove tokens in range and update ranges
 
 
+## Common errors
+
+### Comments errors
+
+Comments need to be attached to a proper way but sometimes, it also fail. Check out this example:
+
+```js
+Something.call(function())
+
+// XXX
+```
+
+Give you the error:
+
+```
+(info) 1.- Found a comment that cannot be attached { type: 'Line',
+  value: ' XXX',
+  range: [ 538, 560 ] }
+```
+You forgot your semicolons, you are lazy so `esprima` is too, fix it and you will have your comment properly atached.
+
+```js
+Something.call(function());
+
+// XXX
+```
+
 
 ## License
 MIT

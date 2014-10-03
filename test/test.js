@@ -7,10 +7,11 @@ var tap = require("tap"),
 
 //setup
 test("Generate file", function(t) {
-    var tree = utils.parseFile(__dirname + "/fixture-test.js");
-    var tree = utils.parseFile(__dirname + "/../lib/walk.js");
+    //var tree = utils.parseFile(__dirname + "/fixture-test.js");
+    //var tree = utils.parseFile(__dirname + "/../lib/walk.js");
+    var tree = utils.parseFile("/home/luis/noboxout/generator-garu/model/templates/server.model.js");
 
-    debug_tree(tree);
+    debug_tree(tree, 60, true);
 
     t.end();
 });
