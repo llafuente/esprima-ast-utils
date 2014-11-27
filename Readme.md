@@ -9,7 +9,6 @@ esprima-ast-utils do this for you, so no escodegen is needed, you can edit the A
 
 ## API
 
-
 #### io
 
 
@@ -213,6 +212,11 @@ Return `FunctionDeclaration` arguments name as a list
 
 
 
+##### `getDefaultProperty` (Object:node)
+
+
+
+
 #### manipulations
 
 
@@ -254,11 +258,13 @@ Detach given node from it's parent
 
 
 
-##### `attachAfter` (Object:node, String|Object:str)
+##### `attachAfter` (Object:node, String|Object:str, [String:property])
 
 Attach after node, that means `node.$parent.type` is a `BockStament`
 
 * `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
+
+* `property`: where to search node in the parent
 
 
 
@@ -416,33 +422,29 @@ Remove tokens in range and update ranges
 **Note**: Do not remove nodes.
 
 
-## Common errors
 
-### Comments errors
+# LICENSE
 
-Comments need to be attached to a proper way but sometimes, it also fail. Check out this example:
+(The MIT License)
 
-```js
-Something.call(function())
+Copyright (c) 2014 Luis Lafuente <llafuente@noboxout.com>
 
-// XXX
-```
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
-Give you the error:
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
-```
-(info) 1.- Found a comment that cannot be attached { type: 'Line',
-  value: ' XXX',
-  range: [ 538, 560 ] }
-```
-You forgot your semicolons, you are lazy so `esprima` is too, fix it and you will have your comment properly atached.
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-```js
-Something.call(function());
-
-// XXX
-```
-
-
-## License
-MIT

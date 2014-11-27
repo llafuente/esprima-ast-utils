@@ -1,6 +1,6 @@
 {
   "name": "esprima-ast-utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "collection for AST query/manipulation/transformation",
   "main": "index.js",
   "directories": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "tap test/test-*.js",
-    "docr": "docr ./lib/io.js ./lib/walk.js ./lib/debug.js ./lib/query.js ./lib/manipulations.js ./lib/transformations.js ./lib/tokens.js ./lib/arrays.js"
+    "docr": "docr ./lib/io.js ./lib/walk.js ./lib/debug.js ./lib/query.js ./lib/manipulations.js ./lib/transformations.js ./lib/tokens.js ./lib/arrays.js --prepend intro.markdown --append LICENSE > Readme.md"
   },
   "repository": {
     "type": "git",
