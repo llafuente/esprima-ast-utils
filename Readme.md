@@ -12,91 +12,91 @@ esprima-ast-utils do this for you, so no escodegen is needed, you can edit the A
 #### io
 
 
-##### `parse` (String:str, [Boolean:debug]) -> Object
+##### `parse` (String:str [, Boolean:debug]) -> Object
 
 Parse given str
 
-**Parameters:**
+*Parameters:*
 
 * `str`
 
 * `debug`: display $id, $parent and $code in console.log (enumerable=true)
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
-**Note**: location it's not supported, and won't sync with changes, range/rokens do.
+*Note*: location it's not supported, and won't sync with changes, range/rokens do.
 
 
+<br /><br />
 
-
-##### `parseWrap` (String:str, [Boolean:debug]) -> Object
+##### `parseWrap` (String:str [, Boolean:debug]) -> Object
 
 Wrap your code into a function and parse given str.
 Needed if your code contains a `ReturnStatement` at Program level.
 
-**Parameters:**
+*Parameters:*
 
 * `str`
 
 * `debug`: display $id, $parent and $code in console.log (enumerable=true)
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
-**Note**: location it's not supported, and won't sync with changes, range/rokens do.
+*Note*: location it's not supported, and won't sync with changes, range/rokens do.
 
 
+<br /><br />
 
-
-##### `parseFile` (String:file, [Boolean:debug]) -> Object
+##### `parseFile` (String:file [, Boolean:debug]) -> Object
 
 Parse given file
 
-**Parameters:**
+*Parameters:*
 
 * `file`: Path
 
 * `debug`: display $id, $parent and $code in console.log (enumerable=true)
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
-**Note**: : NodeJS only
+*Note*: : NodeJS only
 
 
-
+<br /><br />
 
 ##### `encode` (Object:tree) -> String
 
 Return tree.$code, just for API completeness.
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
 
-**Returns:**
+*Returns:*
 
 * `String`
 
 
-
+<br /><br />
 
 #### walk
 
 
-##### `traverse` (Object:node, Function:callback, [Number:depth], [Boolean:recursive])
+##### `traverse` (Object:node, Function:callback [, Number:depth] [, Boolean:recursive])
 
 traverse AST
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -109,13 +109,13 @@ traverse AST
 
 
 
+<br /><br />
 
-
-##### `parentize` (Object:root, [Boolean:debug])
+##### `parentize` (Object:root [, Boolean:debug])
 
 `traverse` AST and set $parent node
 
-**Parameters:**
+*Parameters:*
 
 * `root`
 
@@ -123,13 +123,13 @@ traverse AST
 
 
 
+<br /><br />
 
-
-##### `idze` (Object:node, [Boolean:debug])
+##### `idze` (Object:node [, Boolean:debug])
 
 `traverse` AST and set an unique `$id` to every node
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -137,7 +137,7 @@ traverse AST
 
 
 
-
+<br /><br />
 
 ##### `attachComments` (Object:root)
 
@@ -147,19 +147,19 @@ Loop thought comments and find a proper place to inject (BlockStament or alike)
 * if a children contains the comment it's considered invalid
 * push otherwise
 
-**Parameters:**
+*Parameters:*
 
 * `root`
 
 
 
+<br /><br />
 
-
-##### `filter` (Object:node, Function:callback, [Function:traverse_fn]) -> Array
+##### `filter` (Object:node, Function:callback [, Function:traverse_fn]) -> Array
 
 `traverse` and `filter` given AST based on given `callback`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -168,73 +168,73 @@ Loop thought comments and find a proper place to inject (BlockStament or alike)
 * `traverse_fn`
 
 
-**Returns:**
+*Returns:*
 
 * `Array`: Every match of the `callback`
 
 
-
+<br /><br />
 
 ##### `getParent` (Object:node, Function:callback) -> Object|NULL
 
 Get parent node based on given callback, stops on `true`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `callback`
 
 
-**Returns:**
+*Returns:*
 
 * `Object|NULL`
 
 
-
+<br /><br />
 
 ##### `getRoot` (Object:node) -> Object
 
 get the root of the AST
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
 
-
+<br /><br />
 
 ##### `clone` (Object:node) -> Object
 
 Recursive clone a node. Do no include "$" properties like $parent or $id
 If you want those, call `parentize` - `idze` after cloning
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
 
-
+<br /><br />
 
 #### debug
 
 
-##### `debug_tree` (Object:tree, [Number:max_width], [Boolean:display_code_in_tree])
+##### `debug_tree` (Object:tree [, Number:max_width] [, Boolean:display_code_in_tree])
 
 Show your tree in various ways to easy debug
 Big trees will be always a pain, so keep it small if possible
 
-**Parameters:**
+*Parameters:*
 
 * `tree`: Any node, if root tokens & source will be displayed
 
@@ -244,7 +244,7 @@ Big trees will be always a pain, so keep it small if possible
 
 
 
-
+<br /><br />
 
 #### query
 
@@ -253,204 +253,204 @@ Big trees will be always a pain, so keep it small if possible
 
 `filter` the AST and return the function with given name, null otherwise.
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `fn_name`
 
 
-**Returns:**
+*Returns:*
 
 * `Object|NULL`
 
 
-
+<br /><br />
 
 ##### `getFunctionBlock` (Object:node, String:fn_name) -> Object|NULL
 
 `filter` the AST and return the function > block with given name, null otherwise.
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `fn_name`
 
 
-**Returns:**
+*Returns:*
 
 * `Object|NULL`
 
 
-
+<br /><br />
 
 ##### `isFunctionDeclared` (Object:node, String:fn_name) -> Boolean
 
 shortcut
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `fn_name`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
 
-
+<br /><br />
 
 ##### `hasVarDeclaration` (Object:node, String:var_name) -> Boolean
 
 shortcut
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `var_name`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
 
-
+<br /><br />
 
 ##### `isVarDeclared` (Object:node, String:var_name) -> Boolean
 
 reverse from node to root and look for a Variable declaration
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `var_name`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
-**Note**: It's not perfect because `VariableDeclaration` it's not hoisted
+*Note*: It's not perfect because `VariableDeclaration` it's not hoisted
 
 
-
+<br /><br />
 
 ##### `contains` (Object:node, Object:subnode) -> Boolean
 
 `node` constains `subnode`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `subnode`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
 
-
+<br /><br />
 
 ##### `hasBody` (Object:node) -> Boolean
 
 Has a body property, use to freely attach/detach
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
 
-
+<br /><br />
 
 ##### `isComment` (Object:node) -> Boolean
 
 shortcut: Is a comment (Line or Block) and has text
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`
 
 
-
+<br /><br />
 
 ##### `getComment` (Object:node, String:comment) -> Object
 
 shortcut: search for a comment (trim it's content for maximum compatibility)
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `comment`
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
 
-
+<br /><br />
 
 ##### `getCode` (Object:node) -> String
 
 shortcut: Return node code
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `String`
 
 
-
+<br /><br />
 
 ##### `getArgumentList` (Object:node) -> Array
 
 Return `FunctionDeclaration` arguments name as a list
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
-**Returns:**
+*Returns:*
 
 * `Array`
 
 
-
+<br /><br />
 
 ##### `getDefaultProperty` (Object:node)
 
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 
 
-
+<br /><br />
 
 #### manipulations
 
@@ -459,7 +459,7 @@ Return `FunctionDeclaration` arguments name as a list
 
 Attach Code/Program to given node.
 
-**Parameters:**
+*Parameters:*
 
 * `node`: node to attach
 
@@ -470,21 +470,21 @@ Attach Code/Program to given node.
 * `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
 
 
-**Note**: tokens are updated
+*Note*: tokens are updated
 
-**Note**: range is updated
+*Note*: range is updated
 
-**Note**: comments are not attached to root.comments (invalid-comments)
+*Note*: comments are not attached to root.comments (invalid-comments)
 
 
-
+<br /><br />
 
 ##### `attachPunctuator` (Object:tree, String:punctuator, Number:position) -> String
 
 Attach a punctuator and keep the tree ranges sane.
 The Punctuator can be anything... be careful!
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -493,40 +493,40 @@ The Punctuator can be anything... be careful!
 * `position`
 
 
-**Returns:**
+*Returns:*
 
 * `String`: detached code string
 
-**Note**: The Punctuator is not parsed and could be assigned to nearest literal or alike.
+*Note*: The Punctuator is not parsed and could be assigned to nearest literal or alike.
 
 
-
+<br /><br />
 
 ##### `detach` (Object:node, String:property) -> String
 
 Detach given node from it's parent
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `property`
 
 
-**Returns:**
+*Returns:*
 
 * `String`: detached code string
 
-**Note**: `node.$parent` is set to `null`, remember to save it first if you need it.
+*Note*: `node.$parent` is set to `null`, remember to save it first if you need it.
 
 
+<br /><br />
 
-
-##### `attachAfter` (Object:node, String|Object:str, [String:property])
+##### `attachAfter` (Object:node, String|Object:str [, String:property])
 
 Attach after node, that means `node.$parent.type` is a `BockStament`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -536,13 +536,13 @@ Attach after node, that means `node.$parent.type` is a `BockStament`
 
 
 
-
+<br /><br />
 
 ##### `attachBefore` (Object:node, String|Object:str)
 
 Attach before node, that means `node.$parent.type` is a `BockStament`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -550,13 +550,13 @@ Attach before node, that means `node.$parent.type` is a `BockStament`
 
 
 
-
+<br /><br />
 
 ##### `attachAfterComment` (Object:node, String:comment, String|Object:str) -> Boolean
 
 Shortcut: Search for given comment, and attachAfter
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -565,18 +565,18 @@ Shortcut: Search for given comment, and attachAfter
 * `str`: String is preferred if not possible remember that only Program can be attached, you may consider using `toProgram`
 
 
-**Returns:**
+*Returns:*
 
 * `Boolean`: success
 
 
-
+<br /><br />
 
 ##### `replace` (Object:node, String|Object:str)
 
 Shortcut: detach/attach
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -584,13 +584,13 @@ Shortcut: detach/attach
 
 
 
-
+<br /><br />
 
 ##### `replaceComment` (Object:node, String:comment, String|Object:str)
 
 Shortcut: Search for a comment and replace
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -600,14 +600,14 @@ Shortcut: Search for a comment and replace
 
 
 
-
+<br /><br />
 
 ##### `injectCode` (Object:tree, Array:range, String|Object:str, Boolean:debug)
 
 Inject code directly intro the given range.
 After the injection the code will be parsed again so original `$id` will be lost
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -618,10 +618,10 @@ After the injection the code will be parsed again so original `$id` will be lost
 * `debug`: display $id, $parent and $code in console.log (enumerable=true)
 
 
-**Note**: this is dangerous and powerful
+*Note*: this is dangerous and powerful
 
 
-
+<br /><br />
 
 #### transformations
 
@@ -630,7 +630,7 @@ After the injection the code will be parsed again so original `$id` will be lost
 
 rename `Identifier`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
@@ -638,76 +638,76 @@ rename `Identifier`
 
 
 
-
+<br /><br />
 
 ##### `renameProperty` (Object:node, Object:replacements)
 
 `traverse` and apply given `replacements`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `replacements`
 
 
-Example:
+*Example*:
 ```js
 renameProperty(node, {"old_var": "new_var", "much_older": "shinnig_new"})
 ```
 
 
-
+<br /><br />
 
 ##### `renameVariable` (Object:node, Object:replacements)
 
 `traverse` and apply given `replacements`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `replacements`
 
 
-Example:
+*Example*:
 ```js
 renameVariable(node, {"old_var": "new_var", "much_older": "shinnig_new"})
 ```
 
 
-
+<br /><br />
 
 ##### `renameFunction` (Object:node, Object:replacements)
 
 traverse and apply given `replacements`
 
-**Parameters:**
+*Parameters:*
 
 * `node`
 
 * `replacements`
 
 
-Example:
+*Example*:
 ```js
 renameFunction(node, {"old_var": "new_var", "much_older": "shinnig_new"})
 ```
 
 
-
+<br /><br />
 
 ##### `toProgram` (Object|Array:node)
 
 Clone given node(s) and extract tokens & code from root to given you a Program-like attachable node
 
-**Parameters:**
+*Parameters:*
 
 * `node`: if array is provided will add all nodes to program.body
 
 
 
-
+<br /><br />
 
 #### tokens
 
@@ -716,7 +716,7 @@ Clone given node(s) and extract tokens & code from root to given you a Program-l
 
 Get token based on given range
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -725,18 +725,18 @@ Get token based on given range
 * `end`
 
 
-**Returns:**
+*Returns:*
 
 * `Object|NULL`
 
 
-
+<br /><br />
 
 ##### `getTokens` (Object:tree, Number:start, Number:end) -> Array|NULL
 
 Get tokens in range
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -745,18 +745,18 @@ Get tokens in range
 * `end`
 
 
-**Returns:**
+*Returns:*
 
 * `Array|NULL`
 
 
-
+<br /><br />
 
 ##### `pushTokens` (Object:tree, Number:start, Number:amount)
 
 Push tokens range from start
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -765,16 +765,16 @@ Push tokens range from start
 * `amount`
 
 
-**Note**: Update nodes range
+*Note*: Update nodes range
 
 
-
+<br /><br />
 
 ##### `growTokens` (Object:tree, Number:start, Number:end, Number:amount)
 
 Grow tokens in given range
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -785,34 +785,34 @@ Grow tokens in given range
 * `amount`
 
 
-**Note**: Update nodes range
+*Note*: Update nodes range
 
 
-
+<br /><br />
 
 ##### `tokenAt` (Object:tree, Number:start) -> Object
 
 Get the first token
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
 * `start`
 
 
-**Returns:**
+*Returns:*
 
 * `Object`
 
 
-
+<br /><br />
 
 ##### `addTokens` (Object:dst_tree, Object|Array:src, Number:start)
 
 Add `src` tokens to `dst` since `start` (so keep the order)
 
-**Parameters:**
+*Parameters:*
 
 * `dst_tree`
 
@@ -821,16 +821,16 @@ Add `src` tokens to `dst` since `start` (so keep the order)
 * `start`
 
 
-**Note**: Remember to push `src` tokens before `addTokens` otherwise won't be synced
+*Note*: Remember to push `src` tokens before `addTokens` otherwise won't be synced
 
 
-
+<br /><br />
 
 ##### `replaceCodeRange` (Object:tree, Array:range, String:new_text)
 
 Replace code range with given text.
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -840,13 +840,13 @@ Replace code range with given text.
 
 
 
-
+<br /><br />
 
 ##### `removeTokens` (Object:tree, Number:start, Number:end)
 
 Remove tokens in range and update ranges
 
-**Parameters:**
+*Parameters:*
 
 * `tree`
 
@@ -855,10 +855,10 @@ Remove tokens in range and update ranges
 * `end`
 
 
-**Note**: Do not remove nodes.
+*Note*: Do not remove nodes.
 
 
-
+<br /><br />
 
 # LICENSE
 
