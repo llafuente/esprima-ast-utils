@@ -39,6 +39,7 @@
   "devDependencies": {
     "tap": "^0.4.11",
     "object-enhancements": "^0.1.1",
+    "docr": "0.0.4",
     "doctrine": "^0.5.2"
   }
 }
