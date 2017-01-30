@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/llafuente/esprima-ast-utils",
   "dependencies": {
-    "esprima": "git://github.com/ariya/esprima.git#master",
+    "esprima": "^3.1.3",
     "cssauron-falafel": "^1.2.1",
     "archy": "^1.0.0"
   },
