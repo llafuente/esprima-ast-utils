@@ -16,8 +16,7 @@ test("replaceComment", function(t) {
           type: 'Identifier',
           name: 'name2' },
        params: [],
-       defaults: [],
-       body:
+          body:
         { range: [ 17, 66 ],
           type: 'BlockStatement',
           body:
@@ -55,7 +54,6 @@ test("replaceComment", function(t) {
              { type: 'Line',
                value: '5',
                range: [ 61, 64 ] } ] },
-       rest: null,
        generator: false,
        expression: false },
      { range: [ 68, 98 ],
@@ -65,15 +63,13 @@ test("replaceComment", function(t) {
           type: 'Identifier',
           name: 'name' },
        params: [],
-       defaults: [],
-       body:
+          body:
         { range: [ 84, 98 ],
           type: 'BlockStatement',
           body:
            [ { type: 'Line',
                value: 'name',
                range: [ 90, 96 ] } ] },
-       rest: null,
        generator: false,
        expression: false },
      { range: [ 100, 202 ],
@@ -83,8 +79,7 @@ test("replaceComment", function(t) {
           type: 'Identifier',
           name: 'name3' },
        params: [],
-       defaults: [],
-       body:
+          body:
         { range: [ 148, 202 ],
           type: 'BlockStatement',
           body:
@@ -102,7 +97,6 @@ test("replaceComment", function(t) {
                    { range: [ 198, 199 ],
                      type: 'Identifier',
                      name: 'b' } } } ] },
-       rest: null,
        generator: false,
        expression: false } ])
 
